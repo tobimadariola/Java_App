@@ -29,7 +29,7 @@ pipeline {
             steps {
                 script {
                     echo "Building Docker image $DOCKER_IMAGE_NAME"
-                    docker.build("$DOCKER_IMAGE_NAME")
+                    dockerImage = docker.build DOCKER_IMAGE + ":$DOCKER_TAG"
                 }
             }
         }
@@ -38,10 +38,9 @@ pipeline {
                 script {
                     echo "Pushing Docker image $DOCKER_IMAGE_NAME to Docker Hub..."
                     
-                    // Authenticating and pushing the image using Docker plugin
-                    docker.withRegistry('', docker-hub-credentials) {
-                        docker.image("$DOCKER_IMAGE").push("$DOCKER_TAG")
-                    }
+                    docker.withRegistry( '', docker-hub-credentials ) {
+                    dockerImage.push("$DOCKER_TAG")
+                                              }
                 }
             }
         }
