@@ -39,7 +39,7 @@ pipeline {
                     echo "Pushing Docker image $DOCKER_IMAGE_NAME to Docker Hub..."
                     
                     // Authenticating and pushing the image using Docker plugin
-                    docker.withRegistry('', 'docker-hub-credentials') {
+                    docker.withRegistry('https://hub.docker.com/', 'docker-hub-credentials') {
                         DOCKER_IMAGE.push("1.0.${BUILD_NUMBER}")
                     }
                 }
