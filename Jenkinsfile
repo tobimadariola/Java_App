@@ -5,7 +5,6 @@ pipeline {
          }
 
     environment {
-        DOCKER_USER = "ceeepath"
         DOCKER_IMAGE = "ceeepath/java-app"
         DOCKER_TAG = "1.0.${BUILD_NUMBER}" // Define the Docker tag once
         DOCKER_IMAGE_NAME = "${DOCKER_IMAGE}:${DOCKER_TAG}"
@@ -40,15 +39,8 @@ pipeline {
                     echo "Logging in to Docker Hub..."
                     withCredentials([string(credentialsId: 'dockerPass', variable: 'dockerPass')]) {
                     sh 'docker login -u ceeepath -p $dockerPass'
-                    }
-                }
-            }
-        }
-        stage('Push to Docker Hub') {
-            steps {
-                script {
-                    echo "Pushing Docker image $DOCKER_IMAGE_NAME to Docker Hub..."
                     sh 'docker push $DOCKER_IMAGE_NAME'
+                    }
                 }
             }
         }
