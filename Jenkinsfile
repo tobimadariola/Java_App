@@ -5,6 +5,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = "ceeepath/java-app"
         DOCKER_TAG = "v1.0.${BUILD_NUMBER}" // Define the Docker tag once
+        DOCKER_IMAGE_NAME = "${DOCKER_IMAGE}:${DOCKER_TAG}"
     }
 
     stages {
@@ -26,18 +27,18 @@ pipeline {
             steps {
                 script {
                     echo "Building Docker image ${DOCKER_IMAGE}:${DOCKER_TAG}"
-                    docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}")
+                    docker.build DOCKER_IMAGE_NAME
                 }
             }
         }
         stage('Push to Docker Hub') {
             steps {
                 script {
-                    echo "Pushing Docker image ${DOCKER_IMAGE}:${DOCKER_TAG} to Docker Hub..."
+                    echo "Pushing Docker image $DOCKER_IMAGE_NAME to Docker Hub..."
                     
                     // Authenticating and pushing the image using Docker plugin
                     docker.withRegistry('', 'docker-hub-credentials') {
-                        docker.image("${DOCKER_IMAGE}:${DOCKER_TAG}").push()
+                        DOCKER_IMAGE_NAME.push()
                     }
                 }
             }
@@ -45,8 +46,8 @@ pipeline {
         stage('Cleanup Docker Image') {
             steps {
                 script {
-                    echo "Removing Docker image ${DOCKER_IMAGE}:${DOCKER_TAG} from Jenkins host..."
-                    docker.image("${DOCKER_IMAGE}:${DOCKER_TAG}").remove()
+                    echo "Removing Docker image $DOCKER_IMAGE_NAME from Jenkins host..."
+                    sh "docker rmi $DOCKER_IMAGE_NAME"
                 }
             }
         }
