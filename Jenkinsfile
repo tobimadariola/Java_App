@@ -1,6 +1,8 @@
 pipeline {
     agent any
-    tools{maven "maven3"}
+    tools{maven "maven3"
+          dockerTool "docker"
+         }
 
     environment {
         DOCKER_IMAGE = "ceeepath/java-app"
