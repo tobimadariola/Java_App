@@ -34,12 +34,21 @@ pipeline {
                 }
             }
         }
+        stage('Authenticate to Docker Hub') {
+            steps {
+                script {
+                    echo "Logging in to Docker Hub..."
+                    withCredentials([string(credentialsId: 'dockerPass', variable: 'dockerPass')]) {
+                    sh 'docker login -u ceeepath -p $dockerPass'
+                    }
+                }
+            }
+        }
         stage('Push to Docker Hub') {
             steps {
                 script {
                     echo "Pushing Docker image $DOCKER_IMAGE_NAME to Docker Hub..."
-                    sh "docker login -u $DOCKER_USER -p dockerPass"
-                    sh "docker push $DOCKER_IMAGE_NAME"
+                    sh 'docker push $DOCKER_IMAGE_NAME'
                 }
             }
         }
