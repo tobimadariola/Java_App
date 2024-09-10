@@ -40,7 +40,7 @@ pipeline {
                     
                     // Authenticating and pushing the image using Docker plugin
                     docker.withRegistry('', docker-hub-credentials) {
-                        DOCKER_IMAGE.push("$DOCKER_TAG")
+                        docker.image($DOCKER_IMAGE_NAME).push()
                     }
                 }
             }
