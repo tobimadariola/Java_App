@@ -27,7 +27,7 @@ pipeline {
             steps {
                 script {
                     echo "Building Docker image $DOCKER_IMAGE_NAME"
-                    sh "docker build -t $DOCKER_IMAGE_NAME ."
+                    docker.build $DOCKER_IMAGE_NAME
                 }
             }
         }
