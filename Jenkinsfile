@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = "ceeepath/java-app"
         DOCKER_TAG = "1.0.${BUILD_NUMBER}" // Define the Docker tag once
+        DOCKER_IMAGE_NAME = "${DOCKER_IMAGE}:${DOCKER_TAG}"
     }
 
     stages {
@@ -25,7 +26,7 @@ pipeline {
             steps {
                 script {
                     echo "Building Docker image ${DOCKER_IMAGE}:${DOCKER_TAG}"
-                    docker.build "${DOCKER_IMAGE}:${DOCKER_TAG}"
+                    docker.build "$DOCKER_IMAGE_NAME"
                 }
             }
         }
