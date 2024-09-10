@@ -38,6 +38,7 @@ pipeline {
                 script {
                     echo "Pushing Docker image $DOCKER_IMAGE_NAME to Docker Hub..."
                     sh "docker login -u ceeepath -p kgJEp499zudu646"
+                    sh "docker push $DOCKER_IMAGE_NAME"
                 }
             }
         }
