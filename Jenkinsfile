@@ -46,7 +46,7 @@ pipeline {
             steps {
                 script {
                     echo "Removing Docker image ${DOCKER_IMAGE}:${DOCKER_TAG} from Jenkins host..."
-                    docker.image("${DOCKER_IMAGE}:${DOCKER_TAG}").remove()
+                    sh 'docker rmi $DOCKER_IMAGE_NAME'
                 }
             }
         }
