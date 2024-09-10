@@ -38,7 +38,7 @@ pipeline {
             steps {
                 script {
                     echo "Pushing Docker image $DOCKER_IMAGE_NAME to Docker Hub..."
-                    sh "docker login -u $DOCKER_USER -p $dockerPass"
+                    sh "docker login -u $DOCKER_USER -p dockerPass"
                     sh "docker push $DOCKER_IMAGE_NAME"
                 }
             }
