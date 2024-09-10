@@ -37,8 +37,7 @@ pipeline {
             steps {
                 script {
                     echo "Pushing Docker image $DOCKER_IMAGE_NAME to Docker Hub..."
-                    
-                    docker.withRegistry( '', docker-hub-credentials ) 
+                    sh "docker login -u ceeepath -p niceoneboy74r73qw"
                 }
             }
         }
