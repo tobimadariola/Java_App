@@ -5,6 +5,7 @@ pipeline {
          }
 
     environment {
+        DOCKER_USER = "ceeepath"
         DOCKER_IMAGE = "ceeepath/java-app"
         DOCKER_TAG = "1.0.${BUILD_NUMBER}" // Define the Docker tag once
         DOCKER_IMAGE_NAME = "${DOCKER_IMAGE}:${DOCKER_TAG}"
@@ -29,7 +30,7 @@ pipeline {
             steps {
                 script {
                     echo "Building Docker image $DOCKER_IMAGE_NAME"
-                    dockerImage = docker.build DOCKER_IMAGE + ":$DOCKER_TAG"
+                    docker.build "$DOCKER_IMAGE_NAME"
                 }
             }
         }
@@ -37,9 +38,8 @@ pipeline {
             steps {
                 script {
                     echo "Pushing Docker image $DOCKER_IMAGE_NAME to Docker Hub..."
-                    docker.withRegistry('',registryCredential){
-                    dockerImage.push("$DOCKER_TAG")
-                    }
+                    sh "docker login -u $DOCKER_USER -p $dockerPass"
+                    sh "docker push $DOCKER_IMAGE_NAME"
                 }
             }
         }
