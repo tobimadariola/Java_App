@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = "${DOCKER_REGISTRY}/${IMAGE_NAME}"
-        DOCKER_TAG = "v1.0.${BUILD_NUMBER}" // Define the Docker tag once
+        DOCKER_TAG = "1.0.${BUILD_NUMBER}" // Define the Docker tag once
     }
 
     stages {
