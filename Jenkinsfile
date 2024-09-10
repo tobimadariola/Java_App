@@ -1,7 +1,6 @@
 pipeline {
     agent any
     tools{maven "maven3"
-          dockerTool "docker"
          }
 
     environment {
@@ -33,13 +32,14 @@ pipeline {
                 }
             }
         }
-        stage('Authenticate to Docker Hub') {
+        stage('Push Image to Docker Hub') {
             steps {
                 script {
                     echo "Logging in to Docker Hub..."
                     withCredentials([string(credentialsId: 'dockerPass', variable: 'dockerPass')]) {
                     sh 'docker login -u ceeepath -p $dockerPass'
                     sh 'docker push $DOCKER_IMAGE_NAME'
+                    echo "Image pushed to docker hub"
                     }
                 }
             }
