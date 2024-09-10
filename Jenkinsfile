@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "${DOCKER_REGISTRY}/${IMAGE_NAME}"
+        DOCKER_IMAGE = "ceeepath/java-app"
         DOCKER_TAG = "1.0.${BUILD_NUMBER}" // Define the Docker tag once
     }
 
