@@ -1,5 +1,6 @@
 pipeline {
     agent any
+    tools{maven "maven3"}
 
     environment {
         DOCKER_IMAGE = "${DOCKER_REGISTRY}/${IMAGE_NAME}"
@@ -10,7 +11,6 @@ pipeline {
         stage('Building Artifat') {
             steps {
                 echo 'Running Maven clean and package...'
-                withMaven(maven: 'maven3')
                 sh 'mvn clean package'
                 }
             }
@@ -18,7 +18,6 @@ pipeline {
         stage('Build Test') {
             steps {
                 echo 'Running Maven tests...'
-                withMaven(maven: 'maven3')
                 sh 'mvn test'
                 }
             }
