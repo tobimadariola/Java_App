@@ -38,9 +38,7 @@ pipeline {
                 script {
                     echo "Pushing Docker image $DOCKER_IMAGE_NAME to Docker Hub..."
                     
-                    docker.withRegistry( '', docker-hub-credentials ) {
-                    dockerImage.push("$DOCKER_TAG")
-                                              }
+                    docker.withRegistry( '', docker-hub-credentials ) 
                 }
             }
         }
