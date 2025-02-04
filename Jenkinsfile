@@ -37,7 +37,8 @@ pipeline {
             steps {
                 script {
                     echo "Logging in to Docker Hub..."
-                    withCredentials([string(credentialsId: 'dockerPass', variable: 'dockerPass')]) {
+                    // #withCredentials([string(credentialsId: 'dockerPass', variable: 'dockerPass')]) {
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDS) {
                     sh 'docker login -u tobimadariola -p $dockerPass'
                     sh 'docker push $DOCKER_IMAGE_NAME'
                     echo "Image pushed to docker hub"
