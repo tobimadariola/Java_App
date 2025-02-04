@@ -5,8 +5,8 @@ pipeline {
          }
 
     environment {
-        DOCKER_IMAGE = "tobimadariola/java-app"
-        DOCKER_TAG = "3.0.0${BUILD_NUMBER}" // Define the Docker tag once
+        DOCKER_IMAGE = "tobimadariola/java-new-app"
+        DOCKER_TAG = "1.0.0${BUILD_NUMBER}" // Define the Docker tag once
         DOCKER_IMAGE_NAME = "${DOCKER_IMAGE}:${DOCKER_TAG}"
     }
 
